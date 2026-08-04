@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pendaftaran Perorangan Turnamen Futsal HUT RI ke-81 RT 09 🇮🇩⚽</title>
+  <style>
+    * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    body {
+      margin: 0; padding: 25px 15px;
+      min-height: 100vh;
+      display: flex; justify-content: center; align-items: center;
+      background: linear-gradient(135deg, #d63031 0%, #e84118 40%, #f5f6fa 100%);
+      background-attachment: fixed;
+      color: #333;
+    }
+    .card {
+      background: #ffffff;
+      padding: 32px 25px;
+      border-radius: 20px;
+      box-shadow: 0 15px 35px rgba(214, 48, 49, 0.3);
+      max-width: 480px;
+      width: 100%;
+      position: relative;
+      border-top: 8px solid #d63031;
+    }
+    .header-tag { text-align: center; margin-bottom: 15px; }
+    .badge-ri {
+      background: linear-gradient(45deg, #d63031, #eb4d4b);
+      color: white;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      display: inline-block;
+      box-shadow: 0 4px 10px rgba(214, 48, 49, 0.3);
+    }
+    h2 { text-align: center; color: #d63031; margin: 8px 0 4px 0; font-size: 1.5rem; font-weight: 800; }
+    p.subtitle { text-align: center; color: #666; font-size: 0.9rem; margin-bottom: 25px; line-height: 1.4; }
+    
+    .form-group { margin-bottom: 18px; text-align: left; }
+    label { display: block; font-weight: 600; margin-bottom: 8px; color: #2c3e50; font-size: 0.9rem; }
+    input[type="text"], input[type="number"], input[type="tel"] {
+      width: 100%; padding: 12px 14px;
+      border: 1.5px solid #ddd; border-radius: 10px;
+      font-size: 0.95rem; transition: all 0.3s ease;
+    }
+    input:focus {
+      border-color: #d63031; outline: none;
+      box-shadow: 0 0 0 3px rgba(214, 48, 49, 0.15);
+    }
+    
+    /* Tombol Pilihan Radio (Kategori & Jenis Kelamin) */
+    .option-group {
+      display: flex;
+      gap: 10px;
+    }
+    .option-item {
+      flex: 1;
+      cursor: pointer;
+    }
+    .option-item input[type="radio"] {
+      display: none;
+    }
+    .btn-radio {
+      display: block;
+      text-align: center;
+      padding: 10px 6px;
+      border: 2px solid #ddd;
+      border-radius: 12px;
+      font-weight: bold;
+      font-size: 0.9rem;
+      color: #555;
+      background-color: #f8f9fa;
+      transition: all 0.3s ease;
+    }
+    .option-item input[type="radio"]:checked + .btn-radio {
+      background: linear-gradient(135deg, #d63031, #eb4d4b);
+      color: #ffffff;
+      border-color: #d63031;
+      box-shadow: 0 4px 12px rgba(214, 48, 49, 0.35);
+    }
+
+    .btn-submit {
+      width: 100%; background: linear-gradient(135deg, #25d366, #128c7e);
+      color: white; border: none;
+      padding: 14px; font-size: 1.05rem; font-weight: bold; border-radius: 30px;
+      cursor: pointer; transition: all 0.3s ease;
+      box-shadow: 0 6px 18px rgba(37, 211, 102, 0.4);
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      margin-top: 10px;
+    }
+    .btn-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 22px rgba(37, 211, 102, 0.5);
+    }
+    .footer-note { text-align: center; font-size: 0.8rem; color: #888; margin-top: 18px; }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <div class="header-tag">
+      <span class="badge-ri">🇮🇩 HUT RI KE-81 🇲🇨</span>
+    </div>
+    <h2>⚽ PENDAFTARAN FUTSAL</h2>
+    <p class="subtitle">Kategori Perorangan / Individu RT 09<br>Isi formulir untuk langsung terhubung ke WA Panitia!</p>
+
+    <form id="futsalForm" onsubmit="sendToWhatsApp(event)">
+      
+      <div class="form-group">
+        <label for="fullName">Nama Lengkap</label>
+        <input type="text" id="fullName" required placeholder="Contoh: Ahmad Rizki">
+      </div>
+
+      <div class="form-group">
+        <label>Jenis Kelamin</label>
+        <div class="option-group">
+          <label class="option-item">
+            <input type="radio" name="gender" value="Laki-laki" checked>
+            <span class="btn-radio">👦 Laki-laki</span>
+          </label>
+          <label class="option-item">
+            <input type="radio" name="gender" value="Perempuan">
+            <span class="btn-radio">👧 Perempuan</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="age">Umur (Tahun)</label>
+        <input type="number" id="age" min="6" max="25" required placeholder="Contoh: 12">
+      </div>
+
+      <div class="form-group">
+        <label>Kategori Tingkat Sekolah</label>
+        <div class="option-group">
+          <label class="option-item">
+            <input type="radio" name="category" value="SD" checked>
+            <span class="btn-radio">🎒 SD</span>
+          </label>
+          <label class="option-item">
+            <input type="radio" name="category" value="SMP">
+            <span class="btn-radio">🏫 SMP</span>
+          </label>
+          <label class="option-item">
+            <input type="radio" name="category" value="SMA">
+            <span class="btn-radio">🎓 SMA</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="phone">No. WhatsApp Aktif</label>
+        <input type="tel" id="phone" required placeholder="08xxxxxxxxxx">
+      </div>
+
+      <button type="submit" class="btn-submit">
+        <span>Daftar Sekarang via WA</span> 📲
+      </button>
+    </form>
+
+    <div class="footer-note">
+      Panitia Pelaksana HUT RI 81 — Karang Taruna RT 09
+    </div>
+  </div>
+
+  <!-- Confetti JS CDN via HTTPS -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+  <script>
+    function sendToWhatsApp(event) {
+      event.preventDefault();
+
+      // Pesta Confetti Merah-Putih
+      confetti({
+        particleCount: 100,
+        spread: 80,
+        origin: { y: 0.6 },
+        colors: ['#d63031', '#ffffff', '#ff7675']
+      });
+
+      // Nomor WA Panitia
+      const noPanitia = "6289652825366";
+
+      // Mengambil Nilai Form
+      const fullName = document.getElementById('fullName').value;
+      const gender = document.querySelector('input[name="gender"]:checked').value;
+      const age = document.getElementById('age').value;
+      const category = document.querySelector('input[name="category"]:checked').value;
+      const phone = document.getElementById('phone').value;
+
+      // Format Pesan Teks WhatsApp
+      const message = `*PENDAFTARAN FUTSAL INDIVIDUAL HUT RI-81 RT 09*%0A%0A` +
+                      `*Nama Lengkap:* ${fullName}%0A` +
+                      `*Jenis Kelamin:* ${gender}%0A` +
+                      `*Umur:* ${age} Tahun%0A` +
+                      `*Kategori:* ${category}%0A` +
+                      `*No. WA:* ${phone}%0A%0A` +
+                      `Mohon dikonfirmasi panitia, terima kasih! 🇲🇨⚽`;
+
+      // Tautan HTTPS WhatsApp
+      const waUrl = `https://wa.me/${noPanitia}?text=${message}`;
+
+      // Buka WhatsApp setelah delay singkat
+      setTimeout(() => {
+        window.open(waUrl, '_blank');
+      }, 500);
+    }
+  </script>
+
+</body>
+</html>
