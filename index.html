@@ -3,189 +3,447 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Selamat Pagi Vivi Apryani 🌸✨</title>
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+  <title>Pengocok Angka - Perjuangan Merdeka 1945</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
+    
     body {
-      background: linear-gradient(135deg, #ffe6ea 0%, #ffc0cb 50%, #ffe4e1 100%);
-      font-family: 'Nunito', sans-serif;
+      font-family: 'Impact', 'Segoe UI', sans-serif;
+      background: radial-gradient(circle, #5c0606 0%, #170101 80%, #000 100%);
+      color: #fff;
       min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 20px;
+      padding: 15px;
       overflow-x: hidden;
     }
-    .card {
-      background: rgba(255, 255, 255, 0.93);
-      border-radius: 28px;
-      padding: 30px 22px;
-      max-width: 450px;
-      width: 100%;
-      text-align: center;
-      box-shadow: 0 12px 35px rgba(255, 105, 180, 0.25);
-      border: 3px solid #ffb6c1;
-      position: relative;
-      z-index: 10;
-    }
-    h1 {
-      font-family: 'Fredoka', cursive;
-      color: #ff477e;
-      font-size: 1.8rem;
-      margin-bottom: 8px;
-    }
-    .subtitle {
-      color: #666;
-      font-size: 0.95rem;
-      margin-bottom: 20px;
-      line-height: 1.4;
-    }
-    .flower-avatar {
-      font-size: 3.8rem;
-      animation: float 2.5s infinite ease-in-out;
-      margin-bottom: 10px;
-      display: inline-block;
-    }
-    @keyframes float {
-      0%, 100% { transform: translateY(0) rotate(0deg); }
-      50% { transform: translateY(-10px) rotate(5deg); }
-    }
-    .box-section {
-      background: #fff0f3;
-      border-radius: 18px;
-      padding: 16px;
-      margin-bottom: 18px;
-      border: 1.5px dashed #ff85a1;
-    }
-    .box-section h3 {
-      color: #ff477e;
-      font-size: 1rem;
-      margin-bottom: 12px;
-    }
-    .btn-grid {
-      display: flex;
-      gap: 8px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-    .btn-cute {
-      background: #ff7597;
-      color: white;
-      border: none;
-      padding: 10px 14px;
+
+    /* Container Card Tema Perjuangan */
+    .war-card {
+      background: linear-gradient(180deg, #2b0303 0%, #0d0101 100%);
+      border: 4px solid #b91c1c;
+      outline: 2px solid #ffd700;
+      box-shadow: 0 0 35px rgba(185, 28, 28, 0.7), inset 0 0 25px rgba(0,0,0,0.9);
       border-radius: 20px;
-      font-weight: bold;
-      font-size: 0.85rem;
-      cursor: pointer;
-      transition: transform 0.2s, background 0.2s;
-      box-shadow: 0 4px 10px rgba(255, 117, 151, 0.3);
-    }
-    .btn-cute:hover {
-      background: #ff477e;
-      transform: scale(1.05);
-    }
-    .btn-gift {
-      background: linear-gradient(45deg, #ff477e, #ff7597);
-      color: white;
+      padding: 24px 18px;
       width: 100%;
-      padding: 14px;
-      font-size: 1rem;
-      border-radius: 25px;
-      margin-top: 5px;
+      max-width: 400px;
+      text-align: center;
+      position: relative;
     }
-    #response-text {
-      min-height: 48px;
-      color: #d63384;
-      font-weight: bold;
-      font-size: 0.9rem;
-      margin-top: 12px;
+
+    /* Flag Header Accent */
+    .flag-banner {
+      height: 8px;
+      width: 100%;
+      background: linear-gradient(to right, #dc2626 50%, #ffffff 50%);
+      margin-bottom: 15px;
+      border-radius: 4px;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    }
+
+    .title-sub {
+      color: #fca5a5;
+      font-size: 0.85rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    .title {
+      font-size: 2rem;
+      color: #ffffff;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      text-shadow: 0 0 10px #dc2626, 3px 3px 0px #000;
+      margin-bottom: 20px;
+    }
+
+    /* Spin Roulette Wheel Box */
+    .spin-box {
+      width: 160px;
+      height: 160px;
+      margin: 0 auto 20px;
+      background: radial-gradient(circle, #ffffff 0%, #cbd5e1 100%);
+      border: 6px solid #b91c1c;
+      border-radius: 50%;
+      box-shadow: 0 0 30px #b91c1c, inset 0 0 15px rgba(0,0,0,0.5);
       display: flex;
-      align-items: center;
       justify-content: center;
-      line-height: 1.3;
+      align-items: center;
+      position: relative;
     }
-    /* Kelopak Bunga Jatuh */
-    .floating-flower {
+
+    .number-display {
+      font-size: 5rem;
+      font-weight: 900;
+      color: #991b1b;
+      text-shadow: 2px 2px 0px #000;
+    }
+
+    .spinning {
+      color: #dc2626;
+      animation: spinPulse 0.06s infinite linear;
+    }
+
+    @keyframes spinPulse {
+      0% { transform: scale(0.9) rotate(-5deg); opacity: 0.8; }
+      50% { transform: scale(1.1) rotate(5deg); opacity: 1; }
+      100% { transform: scale(0.9) rotate(-5deg); opacity: 0.8; }
+    }
+
+    /* Button Styling */
+    .btn-group {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    button {
+      flex: 1;
+      padding: 14px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: all 0.15s ease;
+    }
+
+    .btn-spin {
+      background: linear-gradient(180deg, #dc2626 0%, #7f1d1d 100%);
+      color: #fff;
+      border: 1px solid #fca5a5;
+      box-shadow: 0 4px 15px rgba(220, 38, 38, 0.5);
+    }
+    .btn-spin:hover:not(:disabled) {
+      background: linear-gradient(180deg, #ef4444 0%, #991b1b 100%);
+      transform: translateY(-2px);
+    }
+
+    .btn-reset {
+      background: linear-gradient(180deg, #475569 0%, #1e293b 100%);
+      color: #cbd5e1;
+      border: 1px solid #94a3b8;
+    }
+    .btn-reset:hover:not(:disabled) {
+      background: linear-gradient(180deg, #64748b 0%, #334155 100%);
+      transform: translateY(-2px);
+    }
+
+    button:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+      transform: none !important;
+    }
+
+    /* History List */
+    .history-box {
+      background: rgba(0, 0, 0, 0.7);
+      border: 1px solid #7f1d1d;
+      border-radius: 10px;
+      padding: 12px;
+      text-align: left;
+      font-family: sans-serif;
+    }
+    .history-header {
+      color: #fca5a5;
+      font-size: 0.8rem;
+      font-weight: bold;
+      margin-bottom: 6px;
+      display: flex;
+      justify-content: space-between;
+    }
+    .history-list {
+      color: #f8fafc;
+      max-height: 65px;
+      overflow-y: auto;
+      font-size: 0.85rem;
+      word-wrap: break-word;
+    }
+
+    /* ================= SCATTER ANIMATION GARUDA ================= */
+    .garuda-overlay {
       position: fixed;
-      top: -10px;
-      font-size: 1.4rem;
-      user-select: none;
+      inset: 0;
+      background: rgba(10, 0, 0, 0.92);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+      opacity: 0;
       pointer-events: none;
-      animation: fall linear forwards;
-      z-index: 1;
+      transition: opacity 0.4s ease;
+      backdrop-filter: blur(8px);
     }
-    @keyframes fall {
-      to {
-        transform: translateY(105vh) rotate(360deg);
-      }
+
+    .garuda-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .garuda-card {
+      background: radial-gradient(circle, #7f1d1d 0%, #180202 100%);
+      border: 4px solid #ffd700;
+      box-shadow: 0 0 60px #dc2626, 0 0 20px #ffd700;
+      border-radius: 20px;
+      padding: 30px 20px;
+      text-align: center;
+      width: 90%;
+      max-width: 350px;
+      transform: scale(0.3) rotate(-10deg);
+      transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .garuda-overlay.active .garuda-card {
+      transform: scale(1) rotate(0deg);
+    }
+
+    .garuda-icon {
+      width: 120px;
+      height: 120px;
+      margin: 0 auto;
+      filter: drop-shadow(0 0 15px #ffd700);
+      animation: garudaFlap 0.8s infinite alternate ease-in-out;
+    }
+
+    @keyframes garudaFlap {
+      0% { transform: scale(1) translateY(0); }
+      100% { transform: scale(1.15) translateY(-8px); filter: drop-shadow(0 0 25px #ff0000); }
+    }
+
+    .garuda-title {
+      font-size: 2.2rem;
+      color: #ffd700;
+      text-shadow: 0 0 15px #dc2626, 2px 2px 0px #000;
+      margin-top: 10px;
+      letter-spacing: 2px;
+    }
+
+    .garuda-sub {
+      color: #fff;
+      font-size: 1rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+      margin: 5px 0 15px;
+      font-family: sans-serif;
+    }
+
+    .twin-badge {
+      background: #ffffff;
+      color: #991b1b;
+      font-size: 3.5rem;
+      font-weight: 900;
+      border-radius: 12px;
+      width: 100px;
+      margin: 0 auto 15px;
+      border: 3px solid #ffd700;
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+    }
+
+    .btn-close-garuda {
+      background: linear-gradient(180deg, #ffd700 0%, #b45309 100%);
+      color: #000;
+      font-size: 1rem;
+      padding: 10px 25px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      box-shadow: 0 0 15px #ffd700;
     }
   </style>
 </head>
 <body>
 
-  <div class="card">
-    <div class="flower-avatar">🌸🧸🌸</div>
-    <h1>Selamat Pagi, Vivi Apryani! ✨</h1>
-    <p class="subtitle">Sistem pendeteksi bunga imut mencatat Bidadari Siap Menyambut Hari Ini ~ 💖</p>
-
-    <div class="box-section">
-      <h3>Pilih Mood Vivi Pagi Ini:</h3>
-      <div class="btn-grid">
-        <button class="btn-cute" onclick="setMood('ngantuk')">😴 Masih Ngantuk</button>
-        <button class="btn-cute" onclick="setMood('semangat')">☀️ Siap Beraktivitas</button>
-        <button class="btn-cute" onclick="setMood('kangen')">🥰 Kangen Kamu</button>
-      </div>
-      <div id="response-text">Tekan salah satu tombol di atas ya, Cantik! 👆</div>
-    </div>
-
-    <button class="btn-cute btn-gift" onclick="getGift()">🌸 Buka Hadiah Bunga Spesial 🎁</button>
+<div class="war-card">
+  <div class="flag-banner"></div>
+  <div class="title-sub">INDONESIA VS BELANDA 1945</div>
+  <div class="title">BAMBU RUNCING</div>
+  
+  <div class="spin-box">
+    <div class="number-display" id="display">?</div>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
-  <script>
-    // Efek Bunga dan Hati Jatuh
-    function createFlower() {
-      const items = ['🌸', '🌺', '🌷', '🌼', '✨', '💖', '💐'];
-      const element = document.createElement('div');
-      element.classList.add('floating-flower');
-      element.innerText = items[Math.floor(Math.random() * items.length)];
-      element.style.left = Math.random() * 100 + 'vw';
-      element.style.animationDuration = Math.random() * 3 + 2.5 + 's';
-      element.style.opacity = Math.random();
-      document.body.appendChild(element);
+  <div class="btn-group">
+    <button class="btn-spin" id="btnSpin" onclick="startSpin()">SPIN</button>
+    <button class="btn-reset" id="btnReset" onclick="resetSpin()">RESET</button>
+  </div>
 
-      setTimeout(() => {
-        element.remove();
-      }, 5500);
+  <div class="history-box">
+    <div class="history-header">
+      <span>ANGKA TERPAKAI</span>
+      <span id="counter">0/99</span>
+    </div>
+    <div class="history-list" id="history">-</div>
+  </div>
+</div>
+
+<div class="garuda-overlay" id="garudaModal">
+  <div class="garuda-card">
+    <svg class="garuda-icon" viewBox="0 0 24 24" fill="#ffd700">
+      <path d="M12,2L15,8L21,9L16.5,13.5L18,19.5L12,16.5L6,19.5L7.5,13.5L3,9L9,8L12,2Z"/>
+      <path d="M12,4L10,8H14L12,4Z" fill="#dc2626"/>
+    </svg>
+    <div class="garuda-title">MERDEKA!</div>
+    <div class="garuda-sub">ANGKA KEMBAR PERJUANGAN</div>
+    <div class="twin-badge" id="twinNum">11</div>
+    <button class="btn-close-garuda" onclick="closeGaruda()">BANGKIT!</button>
+  </div>
+</div>
+
+<script>
+  let numbers = [];
+  let history = [];
+  let isSpinning = false;
+  let audioCtx = null;
+
+  function getAudioContext() {
+    if (!audioCtx) {
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     }
-    setInterval(createFlower, 300);
+    return audioCtx;
+  }
 
-    // Respon Tombol Mood
-    function setMood(type) {
-      const resp = document.getElementById('response-text');
-      if (type === 'ngantuk') {
-        resp.innerHTML = "🚨 Deteksi: Vivi butuh pasokan pelukan hangat & teh manis hangat pagi ini! ☕💕";
-      } else if (type === 'semangat') {
-        resp.innerHTML = "✨ Wah keren! Semangat terus hari ini Vivi Apryani, jangan lupa senyum cantiknya! 🏆🌸";
-      } else if (type === 'kangen') {
-        resp.innerHTML = "🫣 Sama dong! Kadar kangen aku ke Vivi juga sudah tembus 1000% pagi ini! 💖";
+  function playSpinTick() {
+    try {
+      const ctx = getAudioContext();
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(800, ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(150, ctx.currentTime + 0.03);
+      gain.gain.setValueAtTime(0.15, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.03);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start();
+      osc.stop(ctx.currentTime + 0.03);
+    } catch(e) {}
+  }
+
+  function playGarudaFanfare() {
+    try {
+      const ctx = getAudioContext();
+      const notes = [261.63, 329.63, 392.00, 523.25, 659.25];
+      notes.forEach((freq, i) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(freq, ctx.currentTime + (i * 0.1));
+        gain.gain.setValueAtTime(0.2, ctx.currentTime + (i * 0.1));
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + (i * 0.1) + 0.3);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(ctx.currentTime + (i * 0.1));
+        osc.stop(ctx.currentTime + (i * 0.1) + 0.3);
+      });
+    } catch(e) {}
+  }
+
+  // FITUR GETAR (VIBRATION API)
+  function triggerVibration() {
+    if ("vibrate" in navigator) {
+      navigator.vibrate([200, 100, 200, 100, 600]);
+    }
+  }
+
+  function init() {
+    numbers = Array.from({ length: 99 }, (_, i) => i + 1);
+    history = [];
+    isSpinning = false;
+    document.getElementById('display').innerText = '?';
+    document.getElementById('history').innerText = '-';
+    document.getElementById('counter').innerText = '0/99';
+    document.getElementById('btnSpin').disabled = false;
+    document.getElementById('btnReset').disabled = false;
+    document.getElementById('display').classList.remove('spinning');
+  }
+
+  function startSpin() {
+    if (numbers.length === 0 || isSpinning) return;
+
+    getAudioContext();
+    isSpinning = true;
+    document.getElementById('btnSpin').disabled = true;
+    document.getElementById('btnReset').disabled = true;
+
+    const display = document.getElementById('display');
+    display.classList.add('spinning');
+
+    const winnerIndex = Math.floor(Math.random() * numbers.length);
+    const winnerNumber = numbers[winnerIndex];
+
+    // DIBUAT LEBIH LAMA DENGAN PENAMBAHAN DURASI
+    let speed = 25;       // Kecepatan awal (ms)
+    let ticks = 0;
+    const minTicks = 60;  // Putaran cepat diperbanyak dari 30 ke 60 kali (~1.5 detik)
+
+    function spinStep() {
+      display.innerText = Math.floor(Math.random() * 99) + 1;
+      playSpinTick();
+      ticks++;
+
+      if (ticks < minTicks) {
+        setTimeout(spinStep, speed);
+      } else if (speed < 400) { // Diperlambat secara bertahap sampai jeda 400ms (efek dramatis)
+        speed += 18; 
+        setTimeout(spinStep, speed);
+      } else {
+        numbers.splice(winnerIndex, 1);
+        history.push(winnerNumber);
+
+        display.innerText = winnerNumber;
+        display.classList.remove('spinning');
+
+        document.getElementById('history').innerText = history.join(', ');
+        document.getElementById('counter').innerText = history.length + '/99';
+
+        isSpinning = false;
+        document.getElementById('btnReset').disabled = false;
+
+        // Jika angka kembar
+        if (winnerNumber % 11 === 0) {
+          triggerGaruda(winnerNumber);
+        } else {
+          if (numbers.length > 0) {
+            document.getElementById('btnSpin').disabled = false;
+          } else {
+            alert('Semua angka perjuangan (1-99) sudah keluar!');
+          }
+        }
       }
     }
 
-    // Hadiah Kejutan
-    function getGift() {
-      confetti({
-        particleCount: 90,
-        spread: 80,
-        origin: { y: 0.6 },
-        colors: ['#ff477e', '#ff7597', '#ffc0cb', '#ffffff']
-      });
+    spinStep();
+  }
 
-      setTimeout(() => {
-        alert("✨ PESAN SPESIAL UNTUK VIVI APRYANI ✨\n\nSelamat pagi Princess Vivi! 🌸\n\nJangan lupa sarapan, minum air putih yang cukup, dan jaga kesehatan ya. Semangat terus buat hari ini, aku bakal selalu dukung dan kangen kamu! 🥰💖");
-      }, 300);
+  function triggerGaruda(num) {
+    document.getElementById('twinNum').innerText = num;
+    document.getElementById('garudaModal').classList.add('active');
+    playGarudaFanfare();
+    triggerVibration();
+  }
+
+  function closeGaruda() {
+    document.getElementById('garudaModal').classList.remove('active');
+    if (numbers.length > 0) {
+      document.getElementById('btnSpin').disabled = false;
+    } else {
+      alert('Semua angka telah dikocok!');
     }
-  </script>
+  }
+
+  function resetSpin() {
+    if (isSpinning) return;
+    init();
+  }
+
+  init();
+</script>
+
 </body>
 </html>
+ Izinkan agar codingnya bisa di pakai di GitHub
