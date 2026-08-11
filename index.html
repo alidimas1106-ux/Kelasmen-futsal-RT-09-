@@ -1,449 +1,425 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pengocok Angka - Perjuangan Merdeka 1945</title>
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    
-    body {
-      font-family: 'Impact', 'Segoe UI', sans-serif;
-      background: radial-gradient(circle, #5c0606 0%, #170101 80%, #000 100%);
-      color: #fff;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 15px;
-      overflow-x: hidden;
-    }
-
-    /* Container Card Tema Perjuangan */
-    .war-card {
-      background: linear-gradient(180deg, #2b0303 0%, #0d0101 100%);
-      border: 4px solid #b91c1c;
-      outline: 2px solid #ffd700;
-      box-shadow: 0 0 35px rgba(185, 28, 28, 0.7), inset 0 0 25px rgba(0,0,0,0.9);
-      border-radius: 20px;
-      padding: 24px 18px;
-      width: 100%;
-      max-width: 400px;
-      text-align: center;
-      position: relative;
-    }
-
-    /* Flag Header Accent */
-    .flag-banner {
-      height: 8px;
-      width: 100%;
-      background: linear-gradient(to right, #dc2626 50%, #ffffff 50%);
-      margin-bottom: 15px;
-      border-radius: 4px;
-      box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-    }
-
-    .title-sub {
-      color: #fca5a5;
-      font-size: 0.85rem;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-    }
-
-    .title {
-      font-size: 2rem;
-      color: #ffffff;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      text-shadow: 0 0 10px #dc2626, 3px 3px 0px #000;
-      margin-bottom: 20px;
-    }
-
-    /* Spin Roulette Wheel Box */
-    .spin-box {
-      width: 160px;
-      height: 160px;
-      margin: 0 auto 20px;
-      background: radial-gradient(circle, #ffffff 0%, #cbd5e1 100%);
-      border: 6px solid #b91c1c;
-      border-radius: 50%;
-      box-shadow: 0 0 30px #b91c1c, inset 0 0 15px rgba(0,0,0,0.5);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: relative;
-    }
-
-    .number-display {
-      font-size: 5rem;
-      font-weight: 900;
-      color: #991b1b;
-      text-shadow: 2px 2px 0px #000;
-    }
-
-    .spinning {
-      color: #dc2626;
-      animation: spinPulse 0.06s infinite linear;
-    }
-
-    @keyframes spinPulse {
-      0% { transform: scale(0.9) rotate(-5deg); opacity: 0.8; }
-      50% { transform: scale(1.1) rotate(5deg); opacity: 1; }
-      100% { transform: scale(0.9) rotate(-5deg); opacity: 0.8; }
-    }
-
-    /* Button Styling */
-    .btn-group {
-      display: flex;
-      gap: 12px;
-      margin-bottom: 20px;
-    }
-
-    button {
-      flex: 1;
-      padding: 14px;
-      font-size: 1.1rem;
-      font-weight: bold;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      transition: all 0.15s ease;
-    }
-
-    .btn-spin {
-      background: linear-gradient(180deg, #dc2626 0%, #7f1d1d 100%);
-      color: #fff;
-      border: 1px solid #fca5a5;
-      box-shadow: 0 4px 15px rgba(220, 38, 38, 0.5);
-    }
-    .btn-spin:hover:not(:disabled) {
-      background: linear-gradient(180deg, #ef4444 0%, #991b1b 100%);
-      transform: translateY(-2px);
-    }
-
-    .btn-reset {
-      background: linear-gradient(180deg, #475569 0%, #1e293b 100%);
-      color: #cbd5e1;
-      border: 1px solid #94a3b8;
-    }
-    .btn-reset:hover:not(:disabled) {
-      background: linear-gradient(180deg, #64748b 0%, #334155 100%);
-      transform: translateY(-2px);
-    }
-
-    button:disabled {
-      opacity: 0.3;
-      cursor: not-allowed;
-      transform: none !important;
-    }
-
-    /* History List */
-    .history-box {
-      background: rgba(0, 0, 0, 0.7);
-      border: 1px solid #7f1d1d;
-      border-radius: 10px;
-      padding: 12px;
-      text-align: left;
-      font-family: sans-serif;
-    }
-    .history-header {
-      color: #fca5a5;
-      font-size: 0.8rem;
-      font-weight: bold;
-      margin-bottom: 6px;
-      display: flex;
-      justify-content: space-between;
-    }
-    .history-list {
-      color: #f8fafc;
-      max-height: 65px;
-      overflow-y: auto;
-      font-size: 0.85rem;
-      word-wrap: break-word;
-    }
-
-    /* ================= SCATTER ANIMATION GARUDA ================= */
-    .garuda-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(10, 0, 0, 0.92);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 999;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.4s ease;
-      backdrop-filter: blur(8px);
-    }
-
-    .garuda-overlay.active {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .garuda-card {
-      background: radial-gradient(circle, #7f1d1d 0%, #180202 100%);
-      border: 4px solid #ffd700;
-      box-shadow: 0 0 60px #dc2626, 0 0 20px #ffd700;
-      border-radius: 20px;
-      padding: 30px 20px;
-      text-align: center;
-      width: 90%;
-      max-width: 350px;
-      transform: scale(0.3) rotate(-10deg);
-      transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-
-    .garuda-overlay.active .garuda-card {
-      transform: scale(1) rotate(0deg);
-    }
-
-    .garuda-icon {
-      width: 120px;
-      height: 120px;
-      margin: 0 auto;
-      filter: drop-shadow(0 0 15px #ffd700);
-      animation: garudaFlap 0.8s infinite alternate ease-in-out;
-    }
-
-    @keyframes garudaFlap {
-      0% { transform: scale(1) translateY(0); }
-      100% { transform: scale(1.15) translateY(-8px); filter: drop-shadow(0 0 25px #ff0000); }
-    }
-
-    .garuda-title {
-      font-size: 2.2rem;
-      color: #ffd700;
-      text-shadow: 0 0 15px #dc2626, 2px 2px 0px #000;
-      margin-top: 10px;
-      letter-spacing: 2px;
-    }
-
-    .garuda-sub {
-      color: #fff;
-      font-size: 1rem;
-      font-weight: bold;
-      letter-spacing: 1px;
-      margin: 5px 0 15px;
-      font-family: sans-serif;
-    }
-
-    .twin-badge {
-      background: #ffffff;
-      color: #991b1b;
-      font-size: 3.5rem;
-      font-weight: 900;
-      border-radius: 12px;
-      width: 100px;
-      margin: 0 auto 15px;
-      border: 3px solid #ffd700;
-      box-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
-    }
-
-    .btn-close-garuda {
-      background: linear-gradient(180deg, #ffd700 0%, #b45309 100%);
-      color: #000;
-      font-size: 1rem;
-      padding: 10px 25px;
-      border-radius: 8px;
-      border: none;
-      cursor: pointer;
-      font-weight: bold;
-      box-shadow: 0 0 15px #ffd700;
-    }
-  </style>
-</head>
-<body>
-
-<div class="war-card">
-  <div class="flag-banner"></div>
-  <div class="title-sub">INDONESIA VS BELANDA 1945</div>
-  <div class="title">BAMBU RUNCING</div>
-  
-  <div class="spin-box">
-    <div class="number-display" id="display">?</div>
-  </div>
-
-  <div class="btn-group">
-    <button class="btn-spin" id="btnSpin" onclick="startSpin()">SPIN</button>
-    <button class="btn-reset" id="btnReset" onclick="resetSpin()">RESET</button>
-  </div>
-
-  <div class="history-box">
-    <div class="history-header">
-      <span>ANGKA TERPAKAI</span>
-      <span id="counter">0/99</span>
-    </div>
-    <div class="history-list" id="history">-</div>
-  </div>
-</div>
-
-<div class="garuda-overlay" id="garudaModal">
-  <div class="garuda-card">
-    <svg class="garuda-icon" viewBox="0 0 24 24" fill="#ffd700">
-      <path d="M12,2L15,8L21,9L16.5,13.5L18,19.5L12,16.5L6,19.5L7.5,13.5L3,9L9,8L12,2Z"/>
-      <path d="M12,4L10,8H14L12,4Z" fill="#dc2626"/>
-    </svg>
-    <div class="garuda-title">MERDEKA!</div>
-    <div class="garuda-sub">ANGKA KEMBAR PERJUANGAN</div>
-    <div class="twin-badge" id="twinNum">11</div>
-    <button class="btn-close-garuda" onclick="closeGaruda()">BANGKIT!</button>
-  </div>
-</div>
-
-<script>
-  let numbers = [];
-  let history = [];
-  let isSpinning = false;
-  let audioCtx = null;
-
-  function getAudioContext() {
-    if (!audioCtx) {
-      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    }
-    return audioCtx;
-  }
-
-  function playSpinTick() {
-    try {
-      const ctx = getAudioContext();
-      const osc = ctx.createOscillator();
-      const gain = ctx.createGain();
-      osc.type = 'triangle';
-      osc.frequency.setValueAtTime(800, ctx.currentTime);
-      osc.frequency.exponentialRampToValueAtTime(150, ctx.currentTime + 0.03);
-      gain.gain.setValueAtTime(0.15, ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.03);
-      osc.connect(gain);
-      gain.connect(ctx.destination);
-      osc.start();
-      osc.stop(ctx.currentTime + 0.03);
-    } catch(e) {}
-  }
-
-  function playGarudaFanfare() {
-    try {
-      const ctx = getAudioContext();
-      const notes = [261.63, 329.63, 392.00, 523.25, 659.25];
-      notes.forEach((freq, i) => {
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
-        osc.type = 'sawtooth';
-        osc.frequency.setValueAtTime(freq, ctx.currentTime + (i * 0.1));
-        gain.gain.setValueAtTime(0.2, ctx.currentTime + (i * 0.1));
-        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + (i * 0.1) + 0.3);
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-        osc.start(ctx.currentTime + (i * 0.1));
-        osc.stop(ctx.currentTime + (i * 0.1) + 0.3);
-      });
-    } catch(e) {}
-  }
-
-  // FITUR GETAR (VIBRATION API)
-  function triggerVibration() {
-    if ("vibrate" in navigator) {
-      navigator.vibrate([200, 100, 200, 100, 600]);
-    }
-  }
-
-  function init() {
-    numbers = Array.from({ length: 99 }, (_, i) => i + 1);
-    history = [];
-    isSpinning = false;
-    document.getElementById('display').innerText = '?';
-    document.getElementById('history').innerText = '-';
-    document.getElementById('counter').innerText = '0/99';
-    document.getElementById('btnSpin').disabled = false;
-    document.getElementById('btnReset').disabled = false;
-    document.getElementById('display').classList.remove('spinning');
-  }
-
-  function startSpin() {
-    if (numbers.length === 0 || isSpinning) return;
-
-    getAudioContext();
-    isSpinning = true;
-    document.getElementById('btnSpin').disabled = true;
-    document.getElementById('btnReset').disabled = true;
-
-    const display = document.getElementById('display');
-    display.classList.add('spinning');
-
-    const winnerIndex = Math.floor(Math.random() * numbers.length);
-    const winnerNumber = numbers[winnerIndex];
-
-    // DIBUAT LEBIH LAMA DENGAN PENAMBAHAN DURASI
-    let speed = 25;       // Kecepatan awal (ms)
-    let ticks = 0;
-    const minTicks = 60;  // Putaran cepat diperbanyak dari 30 ke 60 kali (~1.5 detik)
-
-    function spinStep() {
-      display.innerText = Math.floor(Math.random() * 99) + 1;
-      playSpinTick();
-      ticks++;
-
-      if (ticks < minTicks) {
-        setTimeout(spinStep, speed);
-      } else if (speed < 400) { // Diperlambat secara bertahap sampai jeda 400ms (efek dramatis)
-        speed += 18; 
-        setTimeout(spinStep, speed);
-      } else {
-        numbers.splice(winnerIndex, 1);
-        history.push(winnerNumber);
-
-        display.innerText = winnerNumber;
-        display.classList.remove('spinning');
-
-        document.getElementById('history').innerText = history.join(', ');
-        document.getElementById('counter').innerText = history.length + '/99';
-
-        isSpinning = false;
-        document.getElementById('btnReset').disabled = false;
-
-        // Jika angka kembar
-        if (winnerNumber % 11 === 0) {
-          triggerGaruda(winnerNumber);
-        } else {
-          if (numbers.length > 0) {
-            document.getElementById('btnSpin').disabled = false;
-          } else {
-            alert('Semua angka perjuangan (1-99) sudah keluar!');
-          }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Futsal RT 09 - HUT RI 81</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        
+        .hero-bg {
+            background: linear-gradient(135deg, #b91c1c 0%, #7f1d1d 50%, #450a0a 100%);
         }
-      }
-    }
 
-    spinStep();
-  }
+        .glass-card {
+            background: rgba(24, 24, 27, 0.85);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
 
-  function triggerGaruda(num) {
-    document.getElementById('twinNum').innerText = num;
-    document.getElementById('garudaModal').classList.add('active');
-    playGarudaFanfare();
-    triggerVibration();
-  }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(220, 38, 38, 0.2);
+        }
+    </style>
+</head>
+<body class="hero-bg text-slate-100 min-h-screen selection:bg-red-500 selection:text-white">
 
-  function closeGaruda() {
-    document.getElementById('garudaModal').classList.remove('active');
-    if (numbers.length > 0) {
-      document.getElementById('btnSpin').disabled = false;
-    } else {
-      alert('Semua angka telah dikocok!');
-    }
-  }
+    <!-- Navbar -->
+    <header class="sticky top-0 z-40 bg-zinc-950/80 backdrop-blur-md border-b border-red-900/40 shadow-xl">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <div class="bg-red-600 text-white p-2.5 rounded-xl shadow-lg shadow-red-600/30 font-black text-xl">
+                    🇮🇩
+                </div>
+                <div>
+                    <h1 class="text-lg md:text-xl font-extrabold tracking-tight text-white">
+                        Futsal RT 09 <span class="text-red-500">HUT RI 81</span>
+                    </h1>
+                    <p class="text-xs text-slate-400">Live Turnamen Antar Warga</p>
+                </div>
+            </div>
+            <button onclick="bukaAdmin()" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 shadow-md shadow-red-600/30">
+                <span>🔒</span> Panel Panitia
+            </button>
+        </div>
+    </header>
 
-  function resetSpin() {
-    if (isSpinning) return;
-    init();
-  }
+    <!-- Konten Utama -->
+    <main class="max-w-6xl mx-auto p-4 md:p-6 space-y-6">
+        
+        <!-- Banner Utama / Profil Turnamen -->
+        <section class="glass-card rounded-3xl p-6 md:p-8 relative overflow-hidden shadow-2xl border border-red-500/20">
+            <div class="space-y-3">
+                <span class="bg-red-500/20 text-red-400 border border-red-500/30 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                    🔥 Semangat Kemerdekaan RI ke-81
+                </span>
+                <h2 class="text-3xl md:text-4xl font-black tracking-tight text-white">
+                    Klasemen Resmi Futsal <span class="text-red-500">RT 09</span>
+                </h2>
+                <p class="text-slate-300 text-sm leading-relaxed max-w-2xl">
+                    Perebutan gelar juara antar warga RT 09. Pantau terus perolehan poin, selisih gol, serta daftar top skor secara langsung di sini!
+                </p>
+            </div>
+        </section>
 
-  init();
-</script>
+        <!-- Klasemen Sementara -->
+        <section class="glass-card rounded-3xl p-5 md:p-6 shadow-2xl space-y-4">
+            <div class="flex justify-between items-center">
+                <h3 class="text-lg md:text-xl font-bold flex items-center gap-2 text-emerald-400">
+                    <span>📊</span> Klasemen Sementara
+                </h3>
+                <span class="text-xs text-slate-400">Update Real-Time</span>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="border-b border-slate-800 text-slate-400 text-xs uppercase tracking-wider">
+                            <th class="py-3 px-4">Pos</th>
+                            <th class="py-3 px-4">Tim</th>
+                            <th class="py-3 px-3 text-center">Main</th>
+                            <th class="py-3 px-3 text-center">M</th>
+                            <th class="py-3 px-3 text-center">S</th>
+                            <th class="py-3 px-3 text-center">K</th>
+                            <th class="py-3 px-3 text-center">GM</th>
+                            <th class="py-3 px-3 text-center">GK</th>
+                            <th class="py-3 px-3 text-center">SG</th>
+                            <th class="py-3 px-4 text-center font-bold text-white">Poin</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabelKlasemen" class="divide-y divide-slate-800/60 text-sm">
+                        <!-- Data Klasemen Dinamis -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
 
+        <!-- Grid Top Skor & Riwayat -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            
+            <!-- Top Skor -->
+            <section class="glass-card rounded-3xl p-5 md:p-6 shadow-2xl space-y-4">
+                <h3 class="text-lg md:text-xl font-bold flex items-center gap-2 text-amber-400">
+                    <span>⚽</span> Daftar Top Skor
+                </h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="border-b border-slate-800 text-slate-400 text-xs uppercase tracking-wider">
+                                <th class="py-3 px-4">Pemain</th>
+                                <th class="py-3 px-4">Tim</th>
+                                <th class="py-3 px-4 text-center">Gol</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabelTopSkor" class="divide-y divide-slate-800/60 text-sm">
+                            <!-- Data Top Skor Dinamis -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Riwayat Pertandingan -->
+            <section class="glass-card rounded-3xl p-5 md:p-6 shadow-2xl space-y-4">
+                <h3 class="text-lg md:text-xl font-bold flex items-center gap-2 text-sky-400">
+                    <span>📜</span> Riwayat Pertandingan
+                </h3>
+                <div id="daftarRiwayat" class="space-y-3 max-h-72 overflow-y-auto pr-2">
+                    <!-- Data Riwayat Dinamis -->
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-12 border-t border-red-900/40 bg-zinc-950/90 py-6 text-center text-xs text-slate-400">
+        <p>Karang Taruna & Panitia RT 09 • Dirgahayu Republik Indonesia ke-81 🇮🇩</p>
+    </footer>
+
+    <!-- Modal Password Panitia -->
+    <div id="modalPassword" class="fixed inset-0 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50">
+        <div class="glass-panel p-6 md:p-8 rounded-3xl w-full max-w-sm space-y-4 shadow-2xl text-slate-800">
+            <div class="flex justify-between items-center">
+                <h3 class="text-lg font-bold text-red-600">🔐 Login Panitia</h3>
+                <button onclick="tutupModalPassword()" class="text-slate-400 hover:text-slate-700">✕</button>
+            </div>
+            <p class="text-xs text-slate-500">Masukkan password panitia untuk melanjutkan.</p>
+            <input type="password" id="inputPassword" placeholder="Password..." class="w-full bg-slate-50 border border-slate-300 p-3 rounded-xl text-slate-800 text-sm focus:outline-none focus:border-red-600 transition">
+            <div class="flex space-x-2 pt-2">
+                <button onclick="tutupModalPassword()" class="w-1/2 bg-slate-200 hover:bg-slate-300 py-2.5 rounded-xl text-xs font-bold transition text-slate-700">Batal</button>
+                <button onclick="cekPassword()" class="w-1/2 bg-red-600 hover:bg-red-700 py-2.5 rounded-xl text-xs font-bold text-white shadow-md shadow-red-600/30 transition">Masuk</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Halaman Panel Admin / Panitia -->
+    <div id="panelAdmin" class="fixed inset-0 bg-zinc-950 hidden z-50 overflow-y-auto p-4 md:p-8 text-slate-100">
+        <div class="max-w-3xl mx-auto space-y-6">
+            <div class="glass-card p-4 md:p-6 rounded-2xl flex justify-between items-center border border-slate-800">
+                <div class="flex items-center gap-3">
+                    <span class="text-xl">⚙️</span>
+                    <h2 class="text-lg font-bold text-white">Dasbor Panel Panitia RT 09</h2>
+                </div>
+                <button onclick="tutupAdmin()" class="bg-slate-800 hover:bg-slate-700 px-4 py-2 rounded-xl text-xs font-bold transition">Tutup / Keluar</button>
+            </div>
+
+            <!-- Form Input Skor -->
+            <div class="glass-card p-6 md:p-8 rounded-3xl border border-slate-800 space-y-6 shadow-2xl">
+                <h3 class="text-base font-bold text-emerald-400">📝 Input Hasil Pertandingan Baru</h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs text-slate-400 mb-1 font-semibold uppercase">Tim 1</label>
+                        <select id="tim1" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl text-sm text-white focus:outline-none focus:border-emerald-500" onchange="updatePemainDropdown()"></select>
+                    </div>
+                    <div>
+                        <label class="block text-xs text-slate-400 mb-1 font-semibold uppercase">Tim 2</label>
+                        <select id="tim2" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl text-sm text-white focus:outline-none focus:border-emerald-500" onchange="updatePemainDropdown()"></select>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs text-slate-400 mb-1 font-semibold uppercase">Skor Tim 1</label>
+                        <input type="number" id="skor1" min="0" value="0" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl text-sm text-white focus:outline-none focus:border-emerald-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs text-slate-400 mb-1 font-semibold uppercase">Skor Tim 2</label>
+                        <input type="number" id="skor2" min="0" value="0" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl text-sm text-white focus:outline-none focus:border-emerald-500">
+                    </div>
+                </div>
+
+                <!-- Input Pencetak Gol -->
+                <div class="space-y-3 border-t border-slate-800 pt-5">
+                    <div class="flex justify-between items-center">
+                        <h4 class="text-xs font-bold text-amber-400 uppercase tracking-wider">Pencetak Gol (Opsional)</h4>
+                        <button onclick="tambahBarisPencetakGol()" class="bg-slate-800 hover:bg-slate-700 text-xs px-3 py-1.5 rounded-lg font-bold border border-slate-700 transition">+ Tambah Pencetak Gol</button>
+                    </div>
+                    <div id="listPencetakGol" class="space-y-2"></div>
+                </div>
+
+                <button onclick="simpanPertandingan()" class="w-full bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 p-3.5 rounded-xl font-bold text-sm text-white shadow-lg shadow-emerald-600/30 transition">Simpan Hasil & Perbarui Klasemen Otomatis</button>
+            </div>
+
+            <!-- Kontrol Data / Reset -->
+            <div class="glass-card p-4 rounded-2xl flex justify-between items-center border border-slate-800 text-xs">
+                <span class="text-slate-400">Ingin mengatur ulang seluruh data dari awal?</span>
+                <button onclick="resetData()" class="bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border border-rose-500/20 px-3 py-2 rounded-xl font-bold transition">Reset Data Turnamen</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script Logika -->
+    <script>
+        const dataTimAwal = {
+            "Tim Biru": { pemain: ["Danis", "Adnan", "Keysa", "Ibra"], main: 0, menang: 0, seri: 0, kalah: 0, gm: 0, gk: 0, poin: 0 },
+            "Tim Merah": { pemain: ["Rava", "Arka", "Gendis", "Sena"], main: 0, menang: 0, seri: 0, kalah: 0, gm: 0, gk: 0, poin: 0 },
+            "Tim Putih": { pemain: ["Risky", "Baron", "Kian", "Ocin", "Vano"], main: 0, menang: 0, seri: 0, kalah: 0, gm: 0, gk: 0, poin: 0 },
+            "Tim Hitam": { pemain: ["Levy", "Devan", "Ara", "Dinda", "Lutfi"], main: 0, menang: 0, seri: 0, kalah: 0, gm: 0, gk: 0, poin: 0 }
+        };
+
+        if (!localStorage.getItem('futsal_tim')) {
+            localStorage.setItem('futsal_tim', JSON.stringify(dataTimAwal));
+            localStorage.setItem('futsal_riwayat', JSON.stringify([]));
+            localStorage.setItem('futsal_topskor', JSON.stringify({}));
+        }
+
+        function muatData() {
+            return {
+                tim: JSON.parse(localStorage.getItem('futsal_tim')),
+                riwayat: JSON.parse(localStorage.getItem('futsal_riwayat')),
+                topSkor: JSON.parse(localStorage.getItem('futsal_topskor'))
+            };
+        }
+
+        function simpanKeStorage(tim, riwayat, topSkor) {
+            localStorage.setItem('futsal_tim', JSON.stringify(tim));
+            localStorage.setItem('futsal_riwayat', JSON.stringify(riwayat));
+            localStorage.setItem('futsal_topskor', JSON.stringify(topSkor));
+        }
+
+        function renderTampilan() {
+            let { tim, riwayat, topSkor } = muatData();
+
+            let sortedTim = Object.keys(tim).sort((a, b) => {
+                let sgA = tim[a].gm - tim[a].gk;
+                let sgB = tim[b].gm - tim[b].gk;
+                if (tim[b].poin !== tim[a].poin) return tim[b].poin - tim[a].poin;
+                if (sgB !== sgA) return sgB - sgA;
+                return tim[b].gm - tim[a].gm;
+            });
+
+            let htmlKlasemen = "";
+            sortedTim.forEach((namaTim, index) => {
+                let t = tim[namaTim];
+                let sg = t.gm - t.gk;
+                let badgeClass = index === 0 ? "bg-amber-500/20 text-amber-400 border border-amber-500/30" : "bg-slate-800 text-slate-300";
+                
+                htmlKlasemen += `
+                    <tr class="hover:bg-slate-800/40 transition">
+                        <td class="py-3 px-4 font-bold">
+                            <span class="w-6 h-6 inline-flex items-center justify-center rounded-lg text-xs font-extrabold ${badgeClass}">${index + 1}</span>
+                        </td>
+                        <td class="py-3 px-4 font-semibold text-white">${namaTim}</td>
+                        <td class="py-3 px-3 text-center text-slate-300">${t.main}</td>
+                        <td class="py-3 px-3 text-center text-slate-300">${t.menang}</td>
+                        <td class="py-3 px-3 text-center text-slate-300">${t.seri}</td>
+                        <td class="py-3 px-3 text-center text-slate-300">${t.kalah}</td>
+                        <td class="py-3 px-3 text-center text-slate-300">${t.gm}</td>
+                        <td class="py-3 px-3 text-center text-slate-300">${t.gk}</td>
+                        <td class="py-3 px-3 text-center font-medium ${sg > 0 ? 'text-emerald-400' : sg < 0 ? 'text-rose-400' : 'text-slate-400'}">${sg > 0 ? '+' + sg : sg}</td>
+                        <td class="py-3 px-4 text-center font-black text-emerald-400">${t.poin}</td>
+                    </tr>
+                `;
+            });
+            document.getElementById('tabelKlasemen').innerHTML = htmlKlasemen;
+
+            let sortedSkor = Object.keys(topSkor).sort((a, b) => topSkor[b].gol - topSkor[a].gol);
+            let htmlTopSkor = "";
+            if (sortedSkor.length === 0) {
+                htmlTopSkor = `<tr><td colspan="3" class="py-4 text-center text-slate-500 text-xs">Belum ada pencetak gol tercatat</td></tr>`;
+            } else {
+                sortedSkor.forEach((pemain, idx) => {
+                    let d = topSkor[pemain];
+                    htmlTopSkor += `
+                        <tr class="hover:bg-slate-800/40 transition">
+                            <td class="py-3 px-4 font-medium text-white flex items-center gap-2">
+                                <span class="text-xs text-slate-500 font-bold">#${idx + 1}</span> ${pemain}
+                            </td>
+                            <td class="py-3 px-4 text-slate-400 text-xs">${d.tim}</td>
+                            <td class="py-3 px-4 text-center font-extrabold text-amber-400">${d.gol} ⚽</td>
+                        </tr>
+                    `;
+                });
+            }
+            document.getElementById('tabelTopSkor').innerHTML = htmlTopSkor;
+
+            let htmlRiwayat = "";
+            if (riwayat.length === 0) {
+                htmlRiwayat = `<p class="text-slate-500 text-center text-xs py-6">Belum ada riwayat pertandingan.</p>`;
+            } else {
+                riwayat.slice().reverse().forEach(match => {
+                    htmlRiwayat += `
+                        <div class="bg-slate-900/50 border border-slate-800 p-3.5 rounded-2xl flex justify-between items-center text-sm shadow-sm">
+                            <div class="flex items-center gap-3">
+                                <span class="font-semibold text-slate-200">${match.tim1}</span> 
+                                <span class="bg-red-500/10 text-red-400 border border-red-500/20 px-2.5 py-1 rounded-xl font-black text-xs">${match.skor1} - ${match.skor2}</span> 
+                                <span class="font-semibold text-slate-200">${match.tim2}</span>
+                            </div>
+                            <div class="text-[11px] text-slate-500">${match.tanggal}</div>
+                        </div>
+                    `;
+                });
+            }
+            document.getElementById('daftarRiwayat').innerHTML = htmlRiwayat;
+        }
+
+        function bukaAdmin() { document.getElementById('modalPassword').classList.remove('hidden'); }
+        function tutupModalPassword() { document.getElementById('modalPassword').classList.add('hidden'); document.getElementById('inputPassword').value = ""; }
+
+        function cekPassword() {
+            if (document.getElementById('inputPassword').value === "Aldipersija") {
+                tutupModalPassword();
+                document.getElementById('panelAdmin').classList.remove('hidden');
+                inisialisasiFormAdmin();
+            } else {
+                alert("Password Salah!");
+            }
+        }
+
+        function tutupAdmin() { document.getElementById('panelAdmin').classList.add('hidden'); renderTampilan(); }
+
+        function inisialisasiFormAdmin() {
+            let { tim } = muatData();
+            let keys = Object.keys(tim);
+            let opt = keys.map(t => `<option value="${t}">${t}</option>`).join('');
+            document.getElementById('tim1').innerHTML = opt;
+            document.getElementById('tim2').innerHTML = opt;
+            if (keys.length > 1) document.getElementById('tim2').selectedIndex = 1;
+            document.getElementById('listPencetakGol').innerHTML = "";
+            updatePemainDropdown();
+        }
+
+        function updatePemainDropdown() {
+            let { tim } = muatData();
+            let t1 = document.getElementById('tim1').value;
+            let t2 = document.getElementById('tim2').value;
+            let pemainAktif = [];
+            if (tim[t1]) tim[t1].pemain.forEach(p => pemainAktif.push({ nama: p, tim: t1 }));
+            if (tim[t2]) tim[t2].pemain.forEach(p => pemainAktif.push({ nama: p, tim: t2 }));
+            window.pilihanPemainCache = pemainAktif;
+        }
+
+        function tambahBarisPencetakGol() {
+            let pemainAktif = window.pilihanPemainCache || [];
+            let optPemain = pemainAktif.map(p => `<option value="${p.nama}" data-tim="${p.tim}">${p.nama} (${p.tim})</option>`).join('');
+            let div = document.createElement('div');
+            div.className = "flex gap-2 items-center";
+            div.innerHTML = `
+                <select class="pencetak-select w-full bg-slate-900 border border-slate-700 p-2.5 rounded-xl text-xs text-white">${optPemain}</select>
+                <input type="number" min="1" value="1" class="jumlah-gol w-20 bg-slate-900 border border-slate-700 p-2.5 rounded-xl text-xs text-white text-center" placeholder="Gol">
+                <button onclick="this.parentElement.remove()" class="bg-rose-500/10 text-rose-400 border border-rose-500/20 px-3 py-2.5 rounded-xl text-xs font-bold">✕</button>
+            `;
+            document.getElementById('listPencetakGol').appendChild(div);
+        }
+
+        function simpanPertandingan() {
+            let { tim, riwayat, topSkor } = muatData();
+            let t1 = document.getElementById('tim1').value;
+            let t2 = document.getElementById('tim2').value;
+
+            if (t1 === t2) { alert("Tim 1 dan Tim 2 tidak boleh sama!"); return; }
+
+            let s1 = parseInt(document.getElementById('skor1').value) || 0;
+            let s2 = parseInt(document.getElementById('skor2').value) || 0;
+
+            tim[t1].main += 1; tim[t1].gm += s1; tim[t1].gk += s2;
+            tim[t2].main += 1; tim[t2].gm += s2; tim[t2].gk += s1;
+
+            if (s1 > s2) {
+                tim[t1].menang += 1; tim[t1].poin += 3; tim[t2].kalah += 1;
+            } else if (s1 < s2) {
+                tim[t2].menang += 1; tim[t2].poin += 3; tim[t1].kalah += 1;
+            } else {
+                tim[t1].seri += 1; tim[t1].poin += 1; tim[t2].seri += 1; tim[t2].poin += 1;
+            }
+
+            document.querySelectorAll('#listPencetakGol > div').forEach(baris => {
+                let selectPemain = baris.querySelector('.pencetak-select');
+                let namaPemain = selectPemain.value;
+                let namaTimPemain = selectPemain.options[selectPemain.selectedIndex].getAttribute('data-tim');
+                let jmlGol = parseInt(baris.querySelector('.jumlah-gol').value) || 0;
+
+                if (namaPemain && jmlGol > 0) {
+                    if (!topSkor[namaPemain]) topSkor[namaPemain] = { tim: namaTimPemain, gol: 0 };
+                    topSkor[namaPemain].gol += jmlGol;
+                }
+            });
+
+            let tanggalStr = new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
+            riwayat.push({ tim1: t1, tim2: t2, skor1: s1, skor2: s2, tanggal: tanggalStr });
+
+            simpanKeStorage(tim, riwayat, topSkor);
+            alert("Hasil pertandingan berhasil disimpan dan dikalkulasi otomatis!");
+            tutupAdmin();
+            renderTampilan();
+        }
+
+        function resetData() {
+            if (confirm("Yakin ingin mereset seluruh data turnamen ke awal?")) {
+                localStorage.clear();
+                location.reload();
+            }
+        }
+
+        window.onload = renderTampilan;
+    </script>
 </body>
 </html>
- Izinkan agar codingnya bisa di pakai di GitHub
