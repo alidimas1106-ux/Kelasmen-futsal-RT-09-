@@ -6,7 +6,7 @@
     <title>Futsal Kemerdekaan RT 09 - HUT RI 81</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts: Inter & Montserrat (Untuk kesan Sporty) -->
+    <!-- Google Fonts: Inter & Montserrat -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:ital,wght@0,700;0,900;1,800;1,900&display=swap" rel="stylesheet">
     
     <!-- FIREBASE SDK -->
@@ -17,12 +17,10 @@
         body { font-family: 'Inter', sans-serif; background-color: #0f172a; }
         .font-sporty { font-family: 'Montserrat', sans-serif; }
         
-        /* Background Tema Kemerdekaan Gelap */
         .hero-bg {
             background: linear-gradient(135deg, #1e0505 0%, #450a0a 50%, #0f172a 100%);
         }
         
-        /* Efek Kaca (Glassmorphism) */
         .glass-card {
             background: rgba(30, 41, 59, 0.7);
             backdrop-filter: blur(12px);
@@ -37,12 +35,6 @@
             border: 2px solid #ef4444;
         }
 
-        .nav-active {
-            color: #ef4444 !important; 
-            border-bottom: 2px solid #ef4444;
-        }
-
-        /* Scrollbar ala E-Sport */
         ::-webkit-scrollbar { width: 8px; height: 8px; }
         ::-webkit-scrollbar-track { background: #0f172a; }
         ::-webkit-scrollbar-thumb { background: #dc2626; border-radius: 10px; }
@@ -58,166 +50,158 @@
 
     <!-- Navbar -->
     <header class="sticky top-0 z-40 bg-slate-900/90 backdrop-blur-md border-b border-red-600/50 shadow-2xl mt-7">
-        <div class="max-w-6xl mx-auto px-4 py-3 flex flex-col md:flex-row md:items-center md:justify-between gap-2">
-            <div class="flex items-center justify-between">
-                <div class="flex items-center space-x-3">
-                    <div class="bg-gradient-to-br from-red-500 to-red-700 text-white p-2.5 rounded-xl shadow-lg shadow-red-600/40 font-black text-xl border border-red-400/50">
-                        ⚽
-                    </div>
-                    <div>
-                        <h1 class="text-base font-sporty italic tracking-tight text-white uppercase">
-                            Karang Taruna <span class="text-red-500">RT 09</span>
-                        </h1>
-                        <p class="text-[11px] font-bold tracking-wider text-slate-400" id="statusTeks">🔴 LIVE SCORE KEMERDEKAAN</p>
-                    </div>
+        <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <div class="bg-gradient-to-br from-red-500 to-red-700 text-white p-2.5 rounded-xl shadow-lg shadow-red-600/40 font-black text-xl border border-red-400/50">
+                    ⚽
                 </div>
-                <button class="md:hidden text-slate-300 focus:outline-none" onclick="toggleMenu()">
-                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-                </button>
+                <div>
+                    <h1 class="text-base font-sporty italic tracking-tight text-white uppercase">
+                        Karang Taruna <span class="text-red-500">RT 09</span>
+                    </h1>
+                    <p class="text-[11px] font-bold tracking-wider text-slate-400">🔴 LIVE SCORE KEMERDEKAAN</p>
+                </div>
             </div>
-            
-            <nav id="mobileMenu" class="hidden md:flex flex-col md:flex-row items-center gap-2 md:gap-6 text-xs font-bold text-slate-400 bg-slate-800 md:bg-transparent p-4 md:p-0 rounded-xl mt-3 md:mt-0 uppercase tracking-wider border border-slate-700 md:border-none w-full md:w-auto">
-                <a href="#klasemen" id="nav1" onclick="gantiHalaman(1)" class="hover:text-white py-2 transition nav-active w-full text-center md:w-auto">Klasemen</a>
-                <a href="#tim" id="nav2" onclick="gantiHalaman(2)" class="hover:text-white py-2 transition w-full text-center md:w-auto">Skuad Tim</a>
-                <a href="#jadwal" id="nav3" onclick="gantiHalaman(3)" class="hover:text-white py-2 transition w-full text-center md:w-auto">Jadwal</a>
-                <button onclick="bukaAdmin()" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg text-[11px] font-bold transition shadow-[0_0_15px_rgba(220,38,38,0.5)] w-full md:w-auto mt-2 md:mt-0 flex items-center justify-center gap-2">
-                    <span>🔒</span> PANITIA
-                </button>
-            </nav>
+            <button onclick="bukaAdmin()" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg text-xs font-bold transition shadow-[0_0_15px_rgba(220,38,38,0.5)] flex items-center gap-2">
+                <span>🔒</span> PANITIA
+            </button>
         </div>
     </header>
 
-    <!-- Konten Utama -->
+    <!-- Konten Utama (Semua Tampil Langsung di Depan) -->
     <main class="max-w-6xl mx-auto p-4 md:p-6 space-y-6 mt-4">
         
-        <!-- BAGIAN 1: KLASEMEN & SKOR -->
-        <div id="halaman1" class="space-y-6">
+        <!-- HERO BANNER -->
+        <section class="relative bg-gradient-to-r from-red-700 via-red-800 to-slate-900 rounded-3xl p-6 md:p-10 shadow-2xl overflow-hidden border-2 border-red-500/50">
+            <div class="absolute -right-5 -bottom-10 text-[10rem] opacity-10 font-sporty font-black italic text-white pointer-events-none">81</div>
+            <div class="absolute right-1/3 top-5 text-[6rem] opacity-10 pointer-events-none">⚽</div>
+            <div class="absolute right-10 top-1/4 text-[8rem] opacity-5 pointer-events-none">🇮🇩</div>
             
-            <!-- HERO BANNER TEMA KEMERDEKAAN & FUTSAL -->
-            <section class="relative bg-gradient-to-r from-red-700 via-red-800 to-slate-900 rounded-3xl p-6 md:p-10 shadow-2xl overflow-hidden border-2 border-red-500/50">
-                <div class="absolute -right-5 -bottom-10 text-[10rem] opacity-10 font-sporty font-black italic text-white pointer-events-none">81</div>
-                <div class="absolute right-1/3 top-5 text-[6rem] opacity-10 pointer-events-none">⚽</div>
-                <div class="absolute right-10 top-1/4 text-[8rem] opacity-5 pointer-events-none">🇮🇩</div>
-                
-                <div class="relative z-10 space-y-3">
-                    <span class="bg-white text-red-700 text-[10px] md:text-xs font-black px-4 py-1.5 rounded-full uppercase tracking-widest shadow-lg inline-block">
-                        🏆 Karang Taruna RT 09
-                    </span>
-                    <h2 class="text-3xl md:text-5xl font-sporty font-black text-white italic tracking-tight uppercase leading-tight">
-                        Futsal <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-400">Kemerdekaan</span>
-                    </h2>
-                    <p class="text-red-200 text-xs md:text-sm max-w-lg font-medium border-l-2 border-red-400 pl-3">
-                        Semarak Dirgahayu Republik Indonesia ke-81. Junjung tinggi sportivitas, pantau klasemen dan top skor secara langsung dari lapangan!
-                    </p>
+            <div class="relative z-10 space-y-3">
+                <span class="bg-white text-red-700 text-[10px] md:text-xs font-black px-4 py-1.5 rounded-full uppercase tracking-widest shadow-lg inline-block">
+                    🏆 Karang Taruna RT 09
+                </span>
+                <h2 class="text-3xl md:text-5xl font-sporty font-black text-white italic tracking-tight uppercase leading-tight">
+                    Futsal <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-400">Kemerdekaan</span>
+                </h2>
+                <p class="text-red-200 text-xs md:text-sm max-w-lg font-medium border-l-2 border-red-400 pl-3">
+                    Semarak Dirgahayu Republik Indonesia ke-81. Pantau klasemen, skuad tim, jadwal, dan top skor secara langsung dari lapangan!
+                </p>
+            </div>
+        </section>
+
+        <!-- 1. KLASEMEN SEMENTARA -->
+        <section class="glass-card rounded-3xl p-3 md:p-6 space-y-4">
+            <h3 class="text-lg font-sporty font-bold text-white uppercase tracking-wider flex items-center gap-2 border-b border-slate-700 pb-3">
+                <span class="text-red-500">📊</span> Klasemen Sementara
+            </h3>
+            <div class="w-full">
+                <table class="w-full text-left border-collapse text-[11px] md:text-xs">
+                    <thead>
+                        <tr class="bg-slate-900/50 text-slate-400 uppercase tracking-wider">
+                            <th class="py-2.5 px-1.5 md:px-3 rounded-tl-lg">Pos</th>
+                            <th class="py-2.5 px-1.5 md:px-3">Tim</th>
+                            <th class="py-2.5 px-1 md:px-2 text-center">Main</th>
+                            <th class="py-2.5 px-1 md:px-2 text-center">M</th>
+                            <th class="py-2.5 px-1 md:px-2 text-center">S</th>
+                            <th class="py-2.5 px-1 md:px-2 text-center">K</th>
+                            <th class="py-2.5 px-1 md:px-2 text-center" title="Gol Memasukkan">GM</th>
+                            <th class="py-2.5 px-1 md:px-2 text-center" title="Gol Kebobolan">GK</th>
+                            <th class="py-2.5 px-1 md:px-2 text-center" title="Selisih Gol">SG</th>
+                            <th class="py-2.5 px-2 md:px-3 text-center font-bold text-red-400 rounded-tr-lg">Poin</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabelKlasemen" class="divide-y divide-slate-700/50 font-medium"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- 2. GRID SKUAD TIM & JADWAL PERTANDINGAN (BERDAMPINGAN/MUDAH DILIHAT) -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            
+            <!-- SKUAD TIM -->
+            <section class="glass-card rounded-3xl p-5 md:p-6 space-y-4 border-t-4 border-blue-500">
+                <h3 class="text-base font-sporty font-bold text-white uppercase flex items-center gap-2 border-b border-slate-700 pb-3">
+                    <span class="text-blue-400">🛡️</span> Skuad Tim Peserta
+                </h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                    <div class="bg-slate-900/60 p-3 rounded-xl border border-blue-500/30 space-y-1">
+                        <span class="font-bold text-blue-400 uppercase">Tim Biru</span>
+                        <p class="text-slate-300">Danis, Adnan, Keysa, Ibra, Vero</p>
+                    </div>
+                    <div class="bg-slate-900/60 p-3 rounded-xl border border-red-500/30 space-y-1">
+                        <span class="font-bold text-red-400 uppercase">Tim Merah</span>
+                        <p class="text-slate-300">Rava, Arka, Gendis, Sena, Lutfi</p>
+                    </div>
+                    <div class="bg-slate-900/60 p-3 rounded-xl border-slate-400/30 space-y-1">
+                        <span class="font-bold text-slate-200 uppercase">Tim Putih</span>
+                        <p class="text-slate-300">Risky, Baron, Kian, Ocin, Vano</p>
+                    </div>
+                    <div class="bg-slate-900/60 p-3 rounded-xl border border-zinc-500/30 space-y-1">
+                        <span class="font-bold text-zinc-300 uppercase">Tim Hitam</span>
+                        <p class="text-slate-300">Levy, Devan, Ara, Dinda, Vero</p>
+                    </div>
                 </div>
             </section>
 
-            <!-- Klasemen -->
-            <section class="glass-card rounded-3xl p-3 md:p-6 space-y-4">
-                <h3 class="text-lg font-sporty font-bold text-white uppercase tracking-wider flex items-center gap-2 border-b border-slate-700 pb-3">
-                    <span class="text-red-500">📊</span> Klasemen Sementara
+            <!-- JADWAL TANDING -->
+            <section class="glass-card rounded-3xl p-5 md:p-6 space-y-4 border-t-4 border-emerald-500">
+                <h3 class="text-base font-sporty font-bold text-white uppercase flex items-center gap-2 border-b border-slate-700 pb-3">
+                    <span class="text-emerald-400">📅</span> Jadwal Pertandingan (16.00 WIB)
                 </h3>
-                <!-- DIUBAH: Tanpa pembungkus scroll horizontal agar langsung full pas di layar -->
-                <div class="w-full">
-                    <table class="w-full text-left border-collapse text-[11px] md:text-xs">
-                        <thead>
-                            <tr class="bg-slate-900/50 text-slate-400 uppercase tracking-wider">
-                                <th class="py-2.5 px-1.5 md:px-3 rounded-tl-lg">Pos</th>
-                                <th class="py-2.5 px-1.5 md:px-3">Tim</th>
-                                <th class="py-2.5 px-1 md:px-2 text-center">Main</th>
-                                <th class="py-2.5 px-1 md:px-2 text-center">M</th>
-                                <th class="py-2.5 px-1 md:px-2 text-center">S</th>
-                                <th class="py-2.5 px-1 md:px-2 text-center">K</th>
-                                <th class="py-2.5 px-1 md:px-2 text-center" title="Gol Memasukkan">GM</th>
-                                <th class="py-2.5 px-1 md:px-2 text-center" title="Gol Kebobolan">GK</th>
-                                <th class="py-2.5 px-1 md:px-2 text-center" title="Selisih Gol">SG</th>
-                                <th class="py-2.5 px-2 md:px-3 text-center font-bold text-red-400 rounded-tr-lg">Poin</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tabelKlasemen" class="divide-y divide-slate-700/50 font-medium"></tbody>
+                <div class="space-y-2 text-xs">
+                    <div class="bg-slate-900/60 p-2.5 rounded-lg border border-slate-700 flex justify-between items-center">
+                        <div><strong class="text-red-400">Sabtu, 15 Agt:</strong> Tim Biru vs Tim Merah</div>
+                        <span class="text-slate-400">2x10m</span>
+                    </div>
+                    <div class="bg-slate-900/60 p-2.5 rounded-lg border border-slate-700 flex justify-between items-center">
+                        <div><strong class="text-red-400">Sabtu, 15 Agt:</strong> Tim Putih vs Tim Hitam</div>
+                        <span class="text-slate-400">2x10m</span>
+                    </div>
+                    <div class="bg-slate-900/60 p-2.5 rounded-lg border border-slate-700 flex justify-between items-center">
+                        <div><strong class="text-amber-400">Minggu, 16 Agt:</strong> Tim Biru vs Tim Putih</div>
+                        <span class="text-slate-400">2x10m</span>
+                    </div>
+                    <div class="bg-slate-900/60 p-2.5 rounded-lg border border-slate-700 flex justify-between items-center">
+                        <div><strong class="text-amber-400">Minggu, 16 Agt:</strong> Tim Merah vs Tim Hitam</div>
+                        <span class="text-slate-400">2x10m</span>
+                    </div>
+                    <div class="bg-slate-900/60 p-2.5 rounded-lg border border-slate-700 flex justify-between items-center">
+                        <div><strong class="text-emerald-400">Senin, 17 Agt (Final):</strong> Tim Biru vs Tim Hitam</div>
+                        <span class="text-slate-400">2x10m</span>
+                    </div>
+                    <div class="bg-slate-900/60 p-2.5 rounded-lg border border-slate-700 flex justify-between items-center">
+                        <div><strong class="text-emerald-400">Senin, 17 Agt (Final):</strong> Tim Merah vs Tim Putih</div>
+                        <span class="text-slate-400">2x10m</span>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+        <!-- 3. TOP SKOR & RIWAYAT -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <!-- Top Skor -->
+            <section class="glass-card rounded-3xl p-5 md:p-6 space-y-4 lg:col-span-1 border-t-4 border-amber-500">
+                <h3 class="text-base font-sporty font-bold text-white uppercase flex items-center gap-2">
+                    <span class="text-amber-500">👟</span> Sepatu Emas (Top Skor)
+                </h3>
+                <div class="overflow-x-auto max-h-60 overflow-y-auto pr-2">
+                    <table class="w-full text-left border-collapse">
+                        <tbody id="tabelTopSkor" class="divide-y divide-slate-700/50 text-xs"></tbody>
                     </table>
                 </div>
             </section>
 
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <!-- Top Skor -->
-                <section class="glass-card rounded-3xl p-5 md:p-6 space-y-4 lg:col-span-1 border-t-4 border-amber-500">
-                    <h3 class="text-base font-sporty font-bold text-white uppercase flex items-center gap-2">
-                        <span class="text-amber-500">👟</span> Sepatu Emas (Top Skor)
-                    </h3>
-                    <div class="overflow-x-auto max-h-60 overflow-y-auto pr-2">
-                        <table class="w-full text-left border-collapse">
-                            <tbody id="tabelTopSkor" class="divide-y divide-slate-700/50 text-xs"></tbody>
-                        </table>
-                    </div>
-                </section>
-
-                <!-- Riwayat -->
-                <section class="glass-card rounded-3xl p-5 md:p-6 space-y-4 lg:col-span-2 border-t-4 border-sky-500">
-                    <h3 class="text-base font-sporty font-bold text-white uppercase flex items-center gap-2">
-                        <span class="text-sky-500">📡</span> Riwayat Pertandingan
-                    </h3>
-                    <div id="daftarRiwayat" class="space-y-3 max-h-60 overflow-y-auto pr-2 text-xs"></div>
-                </section>
-            </div>
-        </div>
-        
-        <!-- BAGIAN 2: DAFTAR TIM -->
-        <div id="halaman2" class="hidden space-y-6">
-            <section class="bg-gradient-to-r from-red-700 to-slate-900 rounded-3xl p-6 md:p-8 text-center space-y-2 border border-red-500/30 shadow-xl">
-                <span class="text-4xl">🛡️</span>
-                <h2 class="text-2xl md:text-3xl font-sporty font-black text-white italic uppercase tracking-tight">Skuad Tim Futsal</h2>
-                <p class="text-red-200 text-xs md:text-sm max-w-xl mx-auto">Daftar kesatria lapangan hijau Karang Taruna RT 09.</p>
+            <!-- Riwayat -->
+            <section class="glass-card rounded-3xl p-5 md:p-6 space-y-4 lg:col-span-2 border-t-4 border-sky-500">
+                <h3 class="text-base font-sporty font-bold text-white uppercase flex items-center gap-2">
+                    <span class="text-sky-500">📡</span> Riwayat Pertandingan
+                </h3>
+                <div id="daftarRiwayat" class="space-y-3 max-h-60 overflow-y-auto pr-2 text-xs"></div>
             </section>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div class="glass-card rounded-3xl p-6 shadow-xl border-l-4 border-blue-500 space-y-3 relative overflow-hidden">
-                    <div class="absolute -right-4 -bottom-4 text-6xl opacity-10">🔵</div>
-                    <h3 class="font-sporty font-black italic text-blue-400 text-lg uppercase">Tim Biru</h3>
-                    <p class="text-sm font-medium text-slate-300">Danis, Adnan, Keysa, Ibra</p>
-                </div>
-                <div class="glass-card rounded-3xl p-6 shadow-xl border-l-4 border-red-500 space-y-3 relative overflow-hidden">
-                    <div class="absolute -right-4 -bottom-4 text-6xl opacity-10">🔴</div>
-                    <h3 class="font-sporty font-black italic text-red-400 text-lg uppercase">Tim Merah</h3>
-                    <p class="text-sm font-medium text-slate-300">Rava, Arka, Gendis, Sena</p>
-                </div>
-                <div class="glass-card rounded-3xl p-6 shadow-xl border-l-4 border-slate-200 space-y-3 relative overflow-hidden">
-                    <div class="absolute -right-4 -bottom-4 text-6xl opacity-10">⚪</div>
-                    <h3 class="font-sporty font-black italic text-slate-200 text-lg uppercase">Tim Putih</h3>
-                    <p class="text-sm font-medium text-slate-300">Risky, Baron, Kian, Ocin, Vano</p>
-                </div>
-                <div class="glass-card rounded-3xl p-6 shadow-xl border-l-4 border-zinc-500 space-y-3 relative overflow-hidden">
-                    <div class="absolute -right-4 -bottom-4 text-6xl opacity-10">⚫</div>
-                    <h3 class="font-sporty font-black italic text-zinc-400 text-lg uppercase">Tim Hitam</h3>
-                    <p class="text-sm font-medium text-slate-300">Levy, Devan, Ara, Dinda, Lutfi</p>
-                </div>
-            </div>
         </div>
 
-        <!-- BAGIAN 3: JADWAL -->
-        <div id="halaman3" class="hidden space-y-6">
-            <section class="bg-gradient-to-r from-red-700 to-slate-900 rounded-3xl p-6 md:p-8 text-center space-y-2 border border-red-500/30 shadow-xl">
-                <span class="text-4xl">📅</span>
-                <h2 class="text-2xl md:text-3xl font-sporty font-black text-white italic uppercase tracking-tight">Jadwal Tanding</h2>
-                <p class="text-red-200 text-xs md:text-sm max-w-xl mx-auto">Format main 2x10 menit. Kick-off pukul 16.00 WIB (Sore).</p>
-            </section>
-            <div class="space-y-4">
-                <div class="glass-card rounded-2xl p-5 border-l-4 border-red-600 space-y-3">
-                    <h4 class="font-bold text-white text-sm bg-red-600/20 inline-block px-3 py-1 rounded-md">Sabtu, 15 Agustus 2026</h4>
-                    <div class="bg-slate-900 p-3 rounded-lg flex justify-between items-center text-xs border border-slate-700"><span class="font-bold text-slate-200">Tim Biru <span class="text-slate-500 mx-2">VS</span> Tim Merah</span><span class="text-red-400 font-bold bg-red-400/10 px-2 py-1 rounded">16.00 WIB</span></div>
-                    <div class="bg-slate-900 p-3 rounded-lg flex justify-between items-center text-xs border border-slate-700"><span class="font-bold text-slate-200">Tim Putih <span class="text-slate-500 mx-2">VS</span> Tim Hitam</span><span class="text-red-400 font-bold bg-red-400/10 px-2 py-1 rounded">16.45 WIB</span></div>
-                </div>
-                <div class="glass-card rounded-2xl p-5 border-l-4 border-amber-500 space-y-3">
-                    <h4 class="font-bold text-white text-sm bg-amber-500/20 inline-block px-3 py-1 rounded-md">Minggu, 16 Agustus 2026</h4>
-                    <div class="bg-slate-900 p-3 rounded-lg flex justify-between items-center text-xs border border-slate-700"><span class="font-bold text-slate-200">Tim Biru <span class="text-slate-500 mx-2">VS</span> Tim Putih</span><span class="text-amber-400 font-bold bg-amber-400/10 px-2 py-1 rounded">16.00 WIB</span></div>
-                    <div class="bg-slate-900 p-3 rounded-lg flex justify-between items-center text-xs border border-slate-700"><span class="font-bold text-slate-200">Tim Merah <span class="text-slate-500 mx-2">VS</span> Tim Hitam</span><span class="text-amber-400 font-bold bg-amber-400/10 px-2 py-1 rounded">16.45 WIB</span></div>
-                </div>
-                <div class="glass-card rounded-2xl p-5 border-l-4 border-emerald-500 space-y-3">
-                    <h4 class="font-bold text-white text-sm bg-emerald-500/20 inline-block px-3 py-1 rounded-md">Senin, 17 Agustus 2026 (FINAL)</h4>
-                    <div class="bg-slate-900 p-3 rounded-lg flex justify-between items-center text-xs border border-slate-700"><span class="font-bold text-slate-200">Tim Biru <span class="text-slate-500 mx-2">VS</span> Tim Hitam</span><span class="text-emerald-400 font-bold bg-emerald-400/10 px-2 py-1 rounded">16.00 WIB</span></div>
-                    <div class="bg-slate-900 p-3 rounded-lg flex justify-between items-center text-xs border border-slate-700"><span class="font-bold text-slate-200">Tim Merah <span class="text-slate-500 mx-2">VS</span> Tim Putih</span><span class="text-emerald-400 font-bold bg-emerald-400/10 px-2 py-1 rounded">16.45 WIB</span></div>
-                </div>
-            </div>
-        </div>
     </main>
 
     <!-- Footer -->
@@ -306,10 +290,10 @@
 
         let liveData = { tim: {}, riwayat: [], topSkor: {} };
         const dataTimAwal = {
-            "Tim Biru": { pemain: ["Danis", "Adnan", "Keysa", "Ibra"], main: 0, menang: 0, seri: 0, kalah: 0, gm: 0, gk: 0, poin: 0 },
-            "Tim Merah": { pemain: ["Rava", "Arka", "Gendis", "Sena"], main: 0, menang: 0, seri: 0, kalah: 0, gm: 0, gk: 0, poin: 0 },
+            "Tim Biru": { pemain: ["Danis", "Adnan", "Keysa", "Ibra", "Vero"], main: 0, menang: 0, seri: 0, kalah: 0, gm: 0, gk: 0, poin: 0 },
+            "Tim Merah": { pemain: ["Rava", "Arka", "Gendis", "Sena", "Lutfi"], main: 0, menang: 0, seri: 0, kalah: 0, gm: 0, gk: 0, poin: 0 },
             "Tim Putih": { pemain: ["Risky", "Baron", "Kian", "Ocin", "Vano"], main: 0, menang: 0, seri: 0, kalah: 0, gm: 0, gk: 0, poin: 0 },
-            "Tim Hitam": { pemain: ["Levy", "Devan", "Ara", "Dinda", "Lutfi"], main: 0, menang: 0, seri: 0, kalah: 0, gm: 0, gk: 0, poin: 0 }
+            "Tim Hitam": { pemain: ["Levy", "Devan", "Ara", "Dinda", "Vero"], main: 0, menang: 0, seri: 0, kalah: 0, gm: 0, gk: 0, poin: 0 }
         };
 
         turnamenRef.on('value', (snapshot) => {
@@ -398,18 +382,6 @@
             document.getElementById('daftarRiwayat').innerHTML = htmlRiwayat;
         }
 
-        function gantiHalaman(halaman) {
-            document.getElementById('halaman1').classList.add('hidden');
-            document.getElementById('halaman2').classList.add('hidden');
-            document.getElementById('halaman3').classList.add('hidden');
-            document.getElementById('halaman' + halaman).classList.remove('hidden');
-            document.getElementById('nav1').classList.remove('nav-active');
-            document.getElementById('nav2').classList.remove('nav-active');
-            document.getElementById('nav3').classList.remove('nav-active');
-            document.getElementById('nav' + halaman).classList.add('nav-active');
-        }
-
-        function toggleMenu() { document.getElementById('mobileMenu').classList.toggle('hidden'); }
         function bukaAdmin() { document.getElementById('modalPassword').classList.remove('hidden'); }
         function tutupModalPassword() { document.getElementById('modalPassword').classList.add('hidden'); document.getElementById('inputPassword').value = ""; }
 
