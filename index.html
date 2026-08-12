@@ -290,7 +290,7 @@
 
         let liveData = { tim: {}, riwayat: [], topSkor: {} };
         const dataTimAwal = {
-            "Tim Biru": { pemain: ["Danis", "Adnan", "Keysa", "Ibra", "Vero"], main: 0, menang: 0, seri: 0, kalah: 0, gm: 0, gk: 0, poin: 0 },
+            "Tim Biru": { pemain: ["Danis", "Adnan", "Keysa", "Ibra", "Yasmin"], main: 0, menang: 0, seri: 0, kalah: 0, gm: 0, gk: 0, poin: 0 },
             "Tim Merah": { pemain: ["Rava", "Arka", "Gendis", "Sena", "Lutfi"], main: 0, menang: 0, seri: 0, kalah: 0, gm: 0, gk: 0, poin: 0 },
             "Tim Putih": { pemain: ["Risky", "Baron", "Kian", "Ocin", "Vano"], main: 0, menang: 0, seri: 0, kalah: 0, gm: 0, gk: 0, poin: 0 },
             "Tim Hitam": { pemain: ["Levy", "Devan", "Ara", "Dinda", "Vero"], main: 0, menang: 0, seri: 0, kalah: 0, gm: 0, gk: 0, poin: 0 }
@@ -303,6 +303,45 @@
                 liveData = data;
                 if(!liveData.riwayat) liveData.riwayat = [];
                 if(!liveData.topSkor) liveData.topSkor = {};
+
+                // --- 🔄 SINKRONISASI PEMAIN TERBARU ---
+                let adaPerubahan = false;
+                
+                // 1. Sinkronkan pemain di Firebase dengan dataTimAwal di HTML
+                Object.keys(dataTimAwal).forEach(namaTim => {
+                    if (liveData.tim[namaTim]) {
+                        // Jika susunan pemain berubah, paksa update
+                        if (JSON.stringify(liveData.tim[namaTim].pemain) !== JSON.stringify(dataTimAwal[namaTim].pemain)) {
+                            liveData.tim[namaTim].pemain = dataTimAwal[namaTim].pemain;
+                            adaPerubahan = true;
+                        }
+                    } else {
+                        liveData.tim[namaTim] = dataTimAwal[namaTim];
+                        adaPerubahan = true;
+                    }
+                });
+
+                // 2. Sinkronisasi Top Skor: Update nama tim jika ada pemain yang ditransfer/pindah
+                Object.keys(liveData.topSkor).forEach(namaPemain => {
+                    let timBaru = "";
+                    Object.keys(dataTimAwal).forEach(tim => {
+                        if (dataTimAwal[tim].pemain.includes(namaPemain)) {
+                            timBaru = tim;
+                        }
+                    });
+                    
+                    if (timBaru !== "" && liveData.topSkor[namaPemain].tim !== timBaru) {
+                        liveData.topSkor[namaPemain].tim = timBaru;
+                        adaPerubahan = true;
+                    }
+                });
+
+                // Jika terdeteksi perubahan skuad, update ke database Firebase
+                if (adaPerubahan) {
+                    turnamenRef.update({ tim: liveData.tim, topSkor: liveData.topSkor });
+                }
+                // -------------------------------------
+
             } else {
                 liveData = { tim: dataTimAwal, riwayat: [], topSkor: {} };
                 turnamenRef.set(liveData); 
@@ -409,9 +448,25 @@
             let t1 = document.getElementById('tim1').value;
             let t2 = document.getElementById('tim2').value;
             let pemainAktif = [];
+            
             if (liveData.tim[t1]) liveData.tim[t1].pemain.forEach(p => pemainAktif.push({ nama: p, tim: t1 }));
             if (liveData.tim[t2]) liveData.tim[t2].pemain.forEach(p => pemainAktif.push({ nama: p, tim: t2 }));
+            
             window.pilihanPemainCache = pemainAktif;
+
+            // --- 🔄 SINKRONISASI FORM ADMIN ---
+            // Update dropdown pemain yang sudah terlanjur di-klik "Tambah Pemain"
+            let selects = document.querySelectorAll('.pencetak-select');
+            selects.forEach(select => {
+                let nilaiSebelumnya = select.value;
+                let optPemain = pemainAktif.map(p => `<option value="${p.nama}" data-tim="${p.tim}">${p.nama} (${p.tim})</option>`).join('');
+                select.innerHTML = optPemain;
+                
+                // Jika pemain yang sebelumnya dipilih masih ada di dalam tim yg baru, pertahankan nilainya
+                if(pemainAktif.find(p => p.nama === nilaiSebelumnya)) {
+                    select.value = nilaiSebelumnya;
+                }
+            });
         }
 
         function tambahBarisPencetakGol() {
